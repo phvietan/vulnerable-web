@@ -45,6 +45,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/*', (req, res) => {
+    let cookie = req.cookies.id;
+    if (!req.cookies.id) {
+        cookie = uuid()
+        res.cookie('id', cookie);
+    }
+    
     const path = decodeURIComponent(req.path);
     return res.send(`Sorry, path ${path} not found. Please refer back to <a href="/">/</a>`);
 });
